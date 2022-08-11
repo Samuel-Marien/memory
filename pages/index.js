@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Head from 'next/head'
 
@@ -6,7 +6,13 @@ import MyButton from '../components/MyButton'
 
 import { GiBrainFreeze } from 'react-icons/gi'
 
-export default function Home() {
+const Home = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openModal = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div>
       <Head>
@@ -15,8 +21,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container  mx-auto  mt-10">
-        <div className="shadow-lg p-2 rounded-xl ">
+      <main className=" px-5 md:px-48 mx-auto mt-10 rounded-xl">
+        <div className="shadow-lg p-2 rounded-xl bg-slate-100">
           {/* HEADER */}
           <div className=" flex justify-between">
             <h1 className="text-3xl font-extrabold">memory</h1>
@@ -24,17 +30,46 @@ export default function Home() {
               bgColor={`bg-yellow-500`}
               color="yellow"
               title="New Game"
-              onClick={() => console.log('plop')}
+              onClick={openModal}
             />
           </div>
 
-          {/* CONTENT */}
-          {/* <img src="" alt="landing page" /> */}
-          <div className="flex justify-center  text-yellow-400">
-            <GiBrainFreeze size={300} />
-          </div>
+          {/* CONTENT & MODAL */}
+          {isOpen ? (
+            <div
+              className="my-16 text-yellow-400 w-max mx-auto transition-all 
+            duration-1000 hover:text-pink-400 cursor-pointer active:scale-90"
+            >
+              <span>
+                <GiBrainFreeze size={350} />
+              </span>
+            </div>
+          ) : (
+            <div
+              className="mt-10 w-full px-20 transition-all 
+            duration-500"
+            >
+              <div className="mt-2 w-full shadow rounded-xl flex flex-col justify-center">
+                <p className="text-end w-full mt-2 " onClick={openModal}>
+                  <span
+                    className="shadow rounded bg-pink-500 text-yellow-400  
+                  font-extrabold hover:bg-yellow-400 hover:text-pink-500 
+                  cursor-pointer transition-all duration-500 mr-5 px-1 hover:shadow-none"
+                  >
+                    X
+                  </span>
+                </p>
+                <p className="pb-3 mb-5 mx-10 border-b-2 border-pink-200 text-center font-semibold text-slate-700 text-2xl">
+                  Choose your game options
+                </p>
+                <div></div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
   )
 }
+
+export default Home
