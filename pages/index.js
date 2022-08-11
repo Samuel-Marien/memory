@@ -1,45 +1,8 @@
 import { useState, useEffect } from 'react'
 
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-
-const fisrtArray = ['😈', '☠️', '👽', '👾', '🤖', '🎃', '💩', '🤡']
-const secondArray = [1, 2, 3, 4, 5, 6, 7, 8]
-
-const randomizer = (myArray) => {
-  const shadowArray = [...myArray, ...myArray]
-  return shadowArray.sort(() => Math.random() - 0.5)
-}
-console.log(randomizer(fisrtArray))
-console.log(fisrtArray)
-
-const Card = ({ children }) => {
-  const [state, setState] = useState(false)
-
-  const handleClick = () => {
-    return state ? setState(false) : setState(true)
-  }
-
-  return (
-    <div
-      className={`rounded-full h-20 w-20 cursor-pointer flex justify-center items-center ${
-        state ? ' border border-slate-800 ' : '  bg-slate-800'
-      }`}
-      onClick={handleClick}
-    >
-      <div className={`${state ? ' block ' : ' hidden'}`}>{children}</div>
-    </div>
-  )
-}
 
 export default function Home() {
-  const [state, setState] = useState([])
-
-  useEffect(() => {
-    setState(randomizer(fisrtArray))
-  }, [])
-
   return (
     <div>
       <Head>
@@ -48,20 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col  items-center">
-        <h1 className="mt-10 text-3xl font-bold underline">Hello world!</h1>
-        <div className="mt-10 flex justify-between items-center border  w-96 h-96 flex-wrap">
-          {state.map((item, index) => {
-            return (
-              <div key={index}>
-                <Card>{item}</Card>
-              </div>
-            )
-          })}
-        </div>
-      </main>
-
-      <footer></footer>
+      <main className="flex flex-col  items-center">hello rebuild!</main>
     </div>
   )
 }
