@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import Head from 'next/head'
+import Link from 'next/link'
 
 import MyButton from '../components/MyButton'
 
@@ -8,48 +9,55 @@ import { GiBrainFreeze } from 'react-icons/gi'
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [theme, setTheme] = useState('')
+  const [difficulty, setDifficulty] = useState('')
 
   const openModal = () => {
     setIsOpen(!isOpen)
+    setTheme('')
+    setDifficulty('')
   }
 
   const classesOptionbutton = 'w-36 bg-yellow-400 '
+  const selectedButton = 'bg-green-500'
 
   const themeSelected = (e) => {
-    console.log(e)
-    console.log(e.target.id)
     if (e.target.id === 'imgBtn') {
-      e.target.classList.toggle('bg-amber-500')
+      setTheme('images')
+      e.target.classList.toggle(selectedButton)
       icnBtn.classList.toggle('hidden')
       numBtn.classList.toggle('hidden')
     }
     if (e.target.id === 'icnBtn') {
-      e.target.classList.toggle('bg-amber-500')
+      setTheme('icones')
+      e.target.classList.toggle(selectedButton)
       imgBtn.classList.toggle('hidden')
       numBtn.classList.toggle('hidden')
     }
     if (e.target.id === 'numBtn') {
-      e.target.classList.toggle('bg-amber-500')
+      setTheme('numbers')
+      e.target.classList.toggle(selectedButton)
       imgBtn.classList.toggle('hidden')
       icnBtn.classList.toggle('hidden')
     }
   }
 
   const difficultySelected = (e) => {
-    console.log(e)
-    console.log(e.target.id)
     if (e.target.id === 'btn303') {
-      e.target.classList.toggle('bg-amber-500')
+      setDifficulty('303')
+      e.target.classList.toggle(selectedButton)
       btn404.classList.toggle('hidden')
       btn606.classList.toggle('hidden')
     }
     if (e.target.id === 'btn404') {
-      e.target.classList.toggle('bg-amber-500')
+      setDifficulty('404')
+      e.target.classList.toggle(selectedButton)
       btn303.classList.toggle('hidden')
       btn606.classList.toggle('hidden')
     }
     if (e.target.id === 'btn606') {
-      e.target.classList.toggle('bg-amber-500')
+      setDifficulty('606')
+      e.target.classList.toggle(selectedButton)
       btn303.classList.toggle('hidden')
       btn404.classList.toggle('hidden')
     }
@@ -63,10 +71,10 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className=" px-5 lg:px-48 w-full mx-auto mt-10 rounded-xl text-slate-500">
-        <div className="shadow-lg p-2 rounded-xl bg-slate-100">
+      <main className="2xl:px-96 lg:px-36 px-5 mx-auto mt-2 md:mt-10 rounded-xl text-slate-500 ">
+        <div className="shadow-lg p-2 rounded-xl bg-slate-100 ">
           {/* HEADER */}
-          <div className=" flex justify-between">
+          <div className="  flex justify-between">
             <h1 className="text-3xl font-extrabold">memory</h1>
             {!isOpen && (
               <MyButton
@@ -84,7 +92,7 @@ const Home = () => {
                 onClick={openModal}
                 className="mt-16 text-yellow-400 mx-auto transition-all duration-1000 hover:text-amber-500 cursor-pointer animate-pulse"
               >
-                <span className="w-full flex justify-center ">
+                <span className=" flex justify-center ">
                   <GiBrainFreeze size={350} />
                 </span>
                 <span className="mb-10 w-full flex justify-center text-xl font-black ">
@@ -93,9 +101,9 @@ const Home = () => {
               </div>
             </div>
           ) : (
-            <div className="my-10 w-max mx-auto px-2 md:px-20 transition-all duration-500">
-              <div className="text-slate-500 mt-2 w-max shadow rounded-xl flex flex-col justify-center">
-                <p className="text-end w-full mt-2 " onClick={openModal}>
+            <div className="mx-auto px-2 md:px-20 transition-all duration-500">
+              <div className="text-slate-500 mt-2  rounded-xl flex flex-col justify-center">
+                <p className="text-end  mt-2 " onClick={openModal}>
                   <span
                     className="shadow rounded bg-pink-500 text-yellow-400  
                   font-extrabold hover:bg-pink-200 hover:text-blue-500 
@@ -104,71 +112,88 @@ const Home = () => {
                     X
                   </span>
                 </p>
-                <p className="pb-3 mb-5 mx-10 border-b-2 border-blue-200 text-center font-bold text-2xl">
+                <p className="pb-3 mb-5 mx-10 text-center font-bold text-2xl">
                   Game options
                 </p>
-                <div className="flex flex-col mx-10">
-                  <p className="font-bold mb-2">Select theme</p>
-                  <div className="w-full flex">
-                    <MyButton
-                      id="imgBtn"
-                      myClasses={classesOptionbutton + '  mr-2 md:mr-10'}
-                      title="Images"
-                      onClick={themeSelected}
-                    />
-                    <MyButton
-                      id="icnBtn"
-                      selected="true"
-                      myClasses={
-                        classesOptionbutton + ' border-amber-500 mr-2 md:mr-10'
-                      }
-                      title="Icones"
-                      onClick={themeSelected}
-                    />
-                    <MyButton
-                      id="numBtn"
-                      myClasses={classesOptionbutton}
-                      title="Numbers"
-                      onClick={themeSelected}
-                    />
+                <div className="  w-max mx-auto">
+                  <div className="flex flex-col mx-10">
+                    <p className="font-bold mb-2">Select theme</p>
+                    <div className=" flex flex-col md:flex-row">
+                      <MyButton
+                        id="imgBtn"
+                        myClasses={
+                          classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
+                        }
+                        title="Images"
+                        onClick={themeSelected}
+                      />
+                      <MyButton
+                        id="icnBtn"
+                        myClasses={
+                          classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
+                        }
+                        title="Icones"
+                        onClick={themeSelected}
+                      />
+                      <MyButton
+                        id="numBtn"
+                        myClasses={classesOptionbutton}
+                        title="Numbers"
+                        onClick={themeSelected}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col mx-10 mt-5">
-                  <p className="font-bold mb-2">Select difficulty</p>
-                  <div className="w-full flex ">
-                    <MyButton
-                      id="btn303"
-                      myClasses={classesOptionbutton + '  mr-2 md:mr-10'}
-                      title="Grid 3x3"
-                      onClick={difficultySelected}
-                    />
-                    <MyButton
-                      id="btn404"
-                      myClasses={classesOptionbutton + '  mr-2 md:mr-10'}
-                      color="yellow"
-                      title="Grid 4x4"
-                      onClick={difficultySelected}
-                    />
-                    <MyButton
-                      id="btn606"
-                      myClasses={classesOptionbutton}
-                      title="Grid 6x6"
-                      onClick={difficultySelected}
-                    />
-                  </div>
-                  <div className="flex">
-                    <MyButton
-                      id="cancelBtn"
-                      myClasses={`w-1/2 mr-2 bg-pink-600 w-full my-10 hover:bg-pink-800`}
-                      title="CANCEL"
-                      onClick={openModal}
-                    />
-                    <MyButton
-                      id="startBtn"
-                      myClasses={`bg-amber-500 w-full my-10 focus:bg-amber-600`}
-                      title="START"
-                      // onClick={openModal}
-                    />
+                  <div className="flex flex-col mx-10 mt-5 ">
+                    <p className="font-bold mb-2">Select difficulty</p>
+                    <div className=" flex flex-col md:flex-row">
+                      <MyButton
+                        id="btn303"
+                        myClasses={
+                          classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
+                        }
+                        title="Grid 3x3"
+                        onClick={difficultySelected}
+                      />
+                      <MyButton
+                        id="btn404"
+                        myClasses={
+                          classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
+                        }
+                        color="yellow"
+                        title="Grid 4x4"
+                        onClick={difficultySelected}
+                      />
+                      <MyButton
+                        id="btn606"
+                        myClasses={classesOptionbutton}
+                        title="Grid 6x6"
+                        onClick={difficultySelected}
+                      />
+                    </div>
+                    <div className="flex">
+                      <MyButton
+                        id="cancelBtn"
+                        myClasses={` mr-2 bg-pink-600 my-10 hover:bg-pink-800`}
+                        title="CANCEL"
+                        onClick={openModal}
+                      />
+                      {theme && difficulty && (
+                        <Link
+                          href={{
+                            pathname: '/board',
+                            query: { theme, difficulty }
+                          }}
+                        >
+                          <a className="w-full">
+                            <MyButton
+                              id="startBtn"
+                              myClasses={`w-full md:w-24 bg-green-400 my-10 hover:bg-green-600`}
+                              title="START"
+                            />
+                          </a>
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
