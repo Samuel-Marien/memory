@@ -44,19 +44,19 @@ const Home = () => {
 
   const difficultySelected = (e) => {
     if (e.target.id === 'btn303') {
-      setDifficulty('303')
+      setDifficulty('easy')
       e.target.classList.toggle(selectedButton)
       btn404.classList.toggle('hidden')
       btn606.classList.toggle('hidden')
     }
     if (e.target.id === 'btn404') {
-      setDifficulty('404')
+      setDifficulty('medium')
       e.target.classList.toggle(selectedButton)
       btn303.classList.toggle('hidden')
       btn606.classList.toggle('hidden')
     }
     if (e.target.id === 'btn606') {
-      setDifficulty('606')
+      setDifficulty('hard')
       e.target.classList.toggle(selectedButton)
       btn303.classList.toggle('hidden')
       btn404.classList.toggle('hidden')
@@ -75,7 +75,11 @@ const Home = () => {
         <div className="shadow-lg p-2 rounded-xl bg-slate-100 ">
           {/* HEADER */}
           <div className="  flex justify-between">
-            <h1 className="text-3xl font-extrabold">memory</h1>
+            <Link href={'/'}>
+              <a>
+                <h1 className="text-3xl font-extrabold">memory</h1>
+              </a>
+            </Link>
             {!isOpen && (
               <MyButton
                 myClasses={`bg-yellow-500`}
@@ -151,7 +155,7 @@ const Home = () => {
                         myClasses={
                           classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
                         }
-                        title="Grid 3x3"
+                        title="Grid easy"
                         onClick={difficultySelected}
                       />
                       <MyButton
@@ -160,13 +164,13 @@ const Home = () => {
                           classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
                         }
                         color="yellow"
-                        title="Grid 4x4"
+                        title="Grid medium"
                         onClick={difficultySelected}
                       />
                       <MyButton
                         id="btn606"
                         myClasses={classesOptionbutton}
-                        title="Grid 6x6"
+                        title="Grid hard"
                         onClick={difficultySelected}
                       />
                     </div>

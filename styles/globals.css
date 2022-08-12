@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card-outer {
+  perspective: 1000px;
+}
+
+.card {
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+  transition: all 0.3s;
+}
+
+.card .front,
+.card .back {
+  backface-visibility: hidden;
+}
+
+.card .front img {
+  display: block;
+  max-width: 100%;
+}
+
+.card .back {
+  transform: rotateY(180deg);
+}
+
+.card-outer.flipped .card {
+  transform: rotateY(0);
+}
