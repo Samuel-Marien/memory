@@ -23,13 +23,13 @@ const Home = () => {
 
   const themeSelected = (e) => {
     if (e.target.id === 'imgBtn') {
-      setTheme('images')
+      setTheme('devIcones')
       e.target.classList.toggle(selectedButton)
       icnBtn.classList.toggle('hidden')
       numBtn.classList.toggle('hidden')
     }
     if (e.target.id === 'icnBtn') {
-      setTheme('icones')
+      setTheme('emojis')
       e.target.classList.toggle(selectedButton)
       imgBtn.classList.toggle('hidden')
       numBtn.classList.toggle('hidden')
@@ -128,7 +128,7 @@ const Home = () => {
                         myClasses={
                           classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
                         }
-                        title="Images"
+                        title="Dev icons"
                         onClick={themeSelected}
                       />
                       <MyButton
@@ -136,7 +136,7 @@ const Home = () => {
                         myClasses={
                           classesOptionbutton + ' mr-2 mb-2 md:mr-10 md:mb-0'
                         }
-                        title="Icones"
+                        title="Emojis"
                         onClick={themeSelected}
                       />
                       <MyButton

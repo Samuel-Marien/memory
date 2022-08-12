@@ -11,6 +11,26 @@ import MyButton from '../components/MyButton'
 
 import { MdTimer } from 'react-icons/md'
 import { GiCardPick, GiClick } from 'react-icons/gi'
+import {
+  DiCss3,
+  DiGit,
+  DiGithubBadge,
+  DiHtml5,
+  DiJava,
+  DiJsBadge,
+  DiLinux,
+  DiMongodb,
+  DiNodejsSmall,
+  DiNpm,
+  DiPostgresql,
+  DiPython,
+  DiRasberryPi,
+  DiReact,
+  DiStackoverflow,
+  DiTerminal,
+  DiUbuntu,
+  DiVisualstudio
+} from 'react-icons/di'
 
 const numberArray = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
@@ -36,6 +56,27 @@ const iconsArray = [
   '🥜'
 ]
 
+const MyDevIcons = [
+  DiCss3,
+  DiGit,
+  DiGithubBadge,
+  DiHtml5,
+  DiJava,
+  DiJsBadge,
+  DiLinux,
+  DiMongodb,
+  DiNodejsSmall,
+  DiNpm,
+  DiPostgresql,
+  DiPython,
+  DiRasberryPi,
+  DiReact,
+  DiStackoverflow,
+  DiTerminal,
+  DiUbuntu,
+  DiVisualstudio
+]
+
 const Stat = (props) => {
   const { icon, data } = props
   return (
@@ -53,6 +94,7 @@ const Board = () => {
   const [won, setWon] = useState(false)
   const [activeCards, setActiveCards] = useState([])
   const [foundPairs, setFoundPairs] = useState([])
+  const [avtivedVictoryModal, setAvtivedVictoryModal] = useState(false)
 
   const userOption = {
     theme: router.query.theme,
@@ -60,16 +102,16 @@ const Board = () => {
   }
 
   useEffect(() => {
-    if (userOption.theme === 'images') {
+    if (userOption.theme === 'devIcones') {
       switch (userOption.difficulty) {
         case 'easy':
-          setCards(shuffle([...Images.slice(9), ...Images.slice(9)]))
+          setCards(shuffle([...MyDevIcons.slice(9), ...MyDevIcons.slice(9)]))
           break
         case 'medium':
-          setCards(shuffle([...Images.slice(6), ...Images.slice(6)]))
+          setCards(shuffle([...MyDevIcons.slice(6), ...MyDevIcons.slice(6)]))
           break
         case 'hard':
-          setCards(shuffle([...Images, ...Images]))
+          setCards(shuffle([...MyDevIcons, ...MyDevIcons]))
           break
         default:
           break
@@ -77,8 +119,6 @@ const Board = () => {
     } else if (userOption.theme === 'numbers') {
       switch (userOption.difficulty) {
         case 'easy':
-          console.log('plop icicicici')
-          console.log(userOption.difficulty)
           setCards(shuffle([...numberArray.slice(9), ...numberArray.slice(9)]))
           break
         case 'medium':
@@ -114,13 +154,9 @@ const Board = () => {
       setActiveCards([])
       setWon(false)
       setCards([])
-      pause()
       reset()
     }
-  }, [pause, won, reset])
-
-  // console.log([cards])
-  // console.log(userOption.theme, userOption.difficulty)
+  }, [won, reset])
 
   const flipCard = (index) => {
     if (activeCards.length === 0) {
@@ -136,10 +172,8 @@ const Board = () => {
       }
       if (cards[firstIndex] === cards[secondsIndex]) {
         if (foundPairs.length + 2 === cards.length) {
-          alert(
-            new Date(time * 1000).toISOString().slice(14, 19) + `\n${clicks}`
-          )
-          setWon(true)
+          pause()
+          setAvtivedVictoryModal(true)
         }
         setFoundPairs([...foundPairs, firstIndex, secondsIndex])
       }
@@ -151,6 +185,10 @@ const Board = () => {
     }
 
     setClicks(clicks + 1)
+  }
+
+  const handleRestart = () => {
+    router.reload()
   }
 
   return (
@@ -169,7 +207,7 @@ const Board = () => {
                 <h1 className="text-3xl font-extrabold">memory</h1>
               </a>
             </Link>
-            <div className="flex   ">
+            <div className="flex">
               <Stat
                 icon={<MdTimer />}
                 data={new Date(time * 1000).toISOString().slice(14, 19)}
@@ -178,51 +216,81 @@ const Board = () => {
               <Stat icon={<GiClick />} data={clicks} />
             </div>
             <div className="flex">
-              <MyButton
-                myClasses={`bg-slate-500 mr-2 hover:bg-slate-700`}
-                title="Menu"
-                // onClick={openModal}
-              />
+              <Link href={'/'}>
+                <a>
+                  <MyButton
+                    myClasses={`bg-slate-500 mr-2 hover:bg-slate-700`}
+                    title="Menu"
+                  />
+                </a>
+              </Link>
+
               <MyButton
                 myClasses={`bg-yellow-500 hover:bg-yellow-700`}
                 title="Restart"
-                // onClick={openModal}
+                onClick={handleRestart}
               />
             </div>
           </div>
-
           {/* CONTENT  */}
-          <div className="board my-16 w-8/12 mx-auto grid grid-cols-3 md:grid-cols-6 gap-5">
-            {cards.map((card, index) => {
-              const flippedToFront =
-                activeCards.indexOf(index) !== -1 ||
-                foundPairs.indexOf(index) !== -1
-                  ? 'flipped'
-                  : ''
-              return (
-                <div
-                  className={`card-outer h-24 w-24  rounded-full ${flippedToFront}`}
-                  key={index}
-                  onClick={() => flipCard(index)}
-                >
-                  <div className="card h-24 w-24  rounded-full">
-                    <div className="front absolute">
-                      {userOption.theme === 'numbers' ||
-                      userOption.theme === 'icones' ? (
-                        <div className="flex justify-center items-center pb-2 pr-1 w-24 h-24">
-                          <p className="text-6xl">{card}</p>
+          {!avtivedVictoryModal ? (
+            <>
+              <div className="board my-16 w-8/12 mx-auto grid grid-cols-3 md:grid-cols-6 gap-5">
+                {cards.map((card, index) => {
+                  const Icon = cards[index]
+                  const flippedToFront =
+                    activeCards.indexOf(index) !== -1 ||
+                    foundPairs.indexOf(index) !== -1
+                      ? 'flipped'
+                      : ''
+                  return (
+                    <div
+                      className={`card-outer h-24 w-24  rounded-full ${flippedToFront}`}
+                      key={index}
+                      onClick={() => flipCard(index)}
+                    >
+                      <div className="card h-24 w-24  rounded-full">
+                        <div className="front absolute">
+                          {userOption.theme === 'numbers' ||
+                          userOption.theme === 'emojis' ? (
+                            <div className="flex justify-center items-center pb-2 pr-1 w-24 h-24">
+                              <p className="text-6xl font-mono font-black">
+                                {card}
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="flex justify-center items-center pb-2 pr-1 w-24 h-24">
+                              <p className="text-8xl font-mono font-black text-yellow-500">
+                                <Icon />
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      ) : (
-                        // <img src={card} alt={`illustrations: /${index}`} />
-                        <p>bientot une image</p>
-                      )}
+                        <div className="back absolute bg-slate-500 h-24 w-24 border rounded-full" />
+                      </div>
                     </div>
-                    <div className="back absolute bg-slate-500 h-24 w-24 border rounded-full" />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+                  )
+                })}
+              </div>
+            </>
+          ) : (
+            <div className=" my-36">
+              <p className="text-center text-3xl font-bold">
+                Congratulation you win !!
+              </p>
+              <p className="text-center mt-2">
+                You have successfully completed the {userOption.theme} &apos;s
+                grid in {userOption.difficulty} mode.
+              </p>
+              <div className="flex justify-center mt-5">
+                <Stat
+                  icon={<MdTimer />}
+                  data={new Date(time * 1000).toISOString().slice(14, 19)}
+                />
+                <Stat icon={<GiClick />} data={clicks} />
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
