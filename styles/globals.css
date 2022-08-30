@@ -17,11 +17,6 @@
   backface-visibility: hidden;
 }
 
-.card .front img {
-  display: block;
-  max-width: 100%;
-}
-
 .card .back {
   transform: rotateY(180deg);
 }
