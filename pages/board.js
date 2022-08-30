@@ -191,6 +191,8 @@ const Board = () => {
     router.reload()
   }
 
+  const responsiveRules = ' h-16 w-16 sm:h-24 sm:w-24 '
+
   return (
     <div>
       <Head>
@@ -253,7 +255,7 @@ const Board = () => {
           {/* CONTENT  */}
           {!avtivedVictoryModal ? (
             <>
-              <div className="my-5 md:my-16 w-12/12 xl:w-9/12 mx-auto grid grid-cols-3 md:grid-cols-6 gap-3  ">
+              <div className="my-5 md:my-16 w-12/12 xl:w-9/12 mx-auto grid grid-cols-4 md:grid-cols-6 gap-1 md:gap-3">
                 {cards.map((card, index) => {
                   const Icon = cards[index]
                   const flippedToFront =
@@ -263,28 +265,36 @@ const Board = () => {
                       : ''
                   return (
                     <div
-                      className={`card-outer mx-auto h-16 w-16 sm:h-24 sm:w-24 rounded-full ${flippedToFront}`}
+                      className={` ${responsiveRules} card-outer mx-auto rounded-full ${flippedToFront}`}
                       key={index}
                       onClick={() => flipCard(index)}
                     >
-                      <div className="card h-16 w-16 sm:h-24 sm:w-24 rounded-full">
+                      <div className={` ${responsiveRules} card rounded-full`}>
                         <div className="front absolute">
                           {userOption.theme === 'numbers' ||
                           userOption.theme === 'emojis' ? (
-                            <div className="flex justify-center items-center pb-2 pr-1 h-16 w-16 sm:h-24 sm:w-24">
-                              <p className="text-6xl font-mono font-black">
+                            <div
+                              className={`${responsiveRules} flex justify-center items-center`}
+                            >
+                              <p className="text-3xl md:text-6xl font-mono font-black">
                                 {card}
                               </p>
                             </div>
                           ) : (
-                            <div className="flex justify-center items-center pb-2 pr-1 h-16 w-16 sm:h-24 sm:w-24">
-                              <p className="text-8xl font-mono font-black text-yellow-500">
+                            <div
+                              className={`flex justify-center items-center pb-2 pr-1 ${responsiveRules}`}
+                            >
+                              <p
+                                className={`${responsiveRules} text-4xl md:text-8xl font-mono font-black text-yellow-500`}
+                              >
                                 <Icon />
                               </p>
                             </div>
                           )}
                         </div>
-                        <div className="back absolute bg-slate-500 h-16 w-16 sm:h-24 sm:w-24 border rounded-full " />
+                        <div
+                          className={`${responsiveRules} back absolute bg-slate-500 border rounded-full`}
+                        />
                       </div>
                     </div>
                   )
